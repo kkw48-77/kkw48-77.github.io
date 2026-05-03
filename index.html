@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kentaro K Wada - Portfolio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === BASE STYLES & VARIABLES === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Mode Variables (Default) */
+            --primary-red: #D32F2F; 
+            --bg-main: #ffffff;
+            --bg-alt: #f8f9fa;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --border-color: #e0e0e0;
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --bg-main: #121212;
+            --bg-alt: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #cccccc;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* === TYPOGRAPHY === */
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 4px solid var(--primary-red);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        /* === LAYOUT === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* === NAVIGATION (STICKY) === */
+        header {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--card-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--primary-red);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        /* Dark Mode Toggle Button */
+        #darkModeToggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            color: var(--text-main);
+        }
+
+        #darkModeToggle:hover {
+            background-color: var(--bg-alt);
+        }
+
+        /* === BUTTONS === */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: #ffffff;
+            border: 2px solid var(--primary-red);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary-red);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-red);
+            color: #ffffff;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            min-height: 85vh;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-red);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--bg-main);
+            box-shadow: 0 0 0 4px var(--primary-red), 0 15px 30px rgba(211, 47, 47, 0.2);
+            transition: border-color 0.3s ease;
+        }
+
+        /* === ABOUT SECTION === */
+        .about-section {
+            background-color: var(--bg-alt);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-red);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* === EXPERIENCE & EDUCATION === */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            background-color: var(--bg-alt);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--primary-red);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .timeline-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item h3 {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .timeline-date {
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-subtitle {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .timeline-item ul {
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+        
+        .timeline-item li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* === PROJECTS SECTION === */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background-color: var(--bg-alt);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-red);
+        }
+
+        .project-card p {
+            flex-grow: 1;
+        }
+
+        /* === CONTACT SECTION === */
+        .contact-section {
+            background-color: #1a1a1a; 
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            color: #ffffff;
+            border-bottom-color: var(--primary-red);
+        }
+
+        .contact-section p {
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-links a {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-color: transparent;
+            transition: text-decoration-color 0.3s;
+        }
+
+        .contact-links a:hover {
+            color: var(--primary-red);
+            text-decoration-color: var(--primary-red);
+        }
+
+        /* === BACK TO TOP BUTTON === */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-red);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        #backToTop:hover {
+            transform: translateY(-5px);
+            background-color: #B71C1C;
+        }
+
+        /* === FOOTER === */
+        footer {
+            background-color: #0f0f0f;
+            color: #888;
+            text-align: center;
+            padding: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 2rem;
+                padding-top: 3rem;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .timeline-item-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header & Sticky Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Kentaro K <span>Wada</span></div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <!-- Dark Mode Toggle Button -->
+                        <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-text">
+            <h1>Hello, I'm <br><span>Kentaro K Wada</span></h1>
+            <p>I am an Accounting major at Rutgers University.</p>
+            <div class="hero-buttons">
+                <a href="assets/Resume.pdf" target="_blank" class="btn btn-primary">Download Resume</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="assets/ProfilePic.jpeg" alt="Kentaro K Wada - Profile Picture" class="profile-img">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am a detail-oriented and analytical Accounting student at Rutgers University. My goal is to build a strong foundation in financial principles and apply my quantitative skills to real-world business challenges.</p>
+                    <p>Through my coursework and academic journey, I have developed a deep appreciation for data accuracy, organizational finance, and strategic planning. I am eager to leverage my knowledge in a professional environment and continue growing in the accounting field.</p>
+                </div>
+                <div class="about-skills">
+                    <h3>Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Financial Analysis</span>
+                        <span class="skill-tag">Bookkeeping</span>
+                        <span class="skill-tag">Microsoft Excel</span>
+                        <span class="skill-tag">Data Entry</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Communication</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="container">
+        <h2>Experience & Education</h2>
+        
+        <div class="timeline">
+            
+            <!-- Timeline Item 1: TBK Holdings -->
+            <div class="timeline-item">
+                <div class="timeline-item-header">
+                    <h3>TBK Holdings</h3>
+                    <span class="timeline-date">September 2025 – January 2026</span>
+                </div>
+                <span class="timeline-subtitle">Accounting and Admin Department Intern | Ridgefield Park, New Jersey</span>
+                <ul>
+                    <li>Tracked and maintained financial records for 200+ transactions weekly, ensuring accuracy.</li>
+                    <li>Assisted in preparing monthly profit/loss statements summarizing $500k in revenue.</li>
+                    <li>Analyzed monthly sales trends and identified revenue fluctuations of 5-10%.</li>
+                </ul>
+            </div>
+            
+            <!-- Timeline Item 2: Pora Ramen -->
+            <div class="timeline-item">
+                <div class="timeline-item-header">
+                    <h3>Pora Ramen</h3>
+                    <span class="timeline-date">July 2025 – August 2025</span>
+                </div>
+                <span class="timeline-subtitle">Cashier, Barista | East Rutherford, New Jersey</span>
+                <ul>
+                    <li>Processed $3000-$12000 in daily sales transactions, serving up to 500-600 customers.</li>
+                    <li>Prepared 100+ drinks per shift, while maintaining order accuracy at the register.</li>
+                    <li>Assisted in inventory tracking and restocking 500+ beverages and food items weekly.</li>
+                </ul>
+            </div>
+
+            <!-- Timeline Item 3: Palmer Ace Hardware -->
+            <div class="timeline-item">
+                <div class="timeline-item-header">
+                    <h3>Palmer Ace Hardware</h3>
+                    <span class="timeline-date">September 2022 – August 2024</span>
+                </div>
+                <span class="timeline-subtitle">Sales Associate, Paint Associate, Cashier | River Edge, New Jersey</span>
+                <ul>
+                    <li>Handled about 20 paint mixing requests per shift while providing paint recommendations.</li>
+                    <li>Assisted an average of 100 customers per shift, providing customers with helpful advice.</li>
+                    <li>Worked up to 40 hours per week, demonstrating flexibility and a strong work ethic.</li>
+                </ul>
+            </div>
+
+            <!-- Timeline Item 4: Rutgers -->
+            <div class="timeline-item">
+                <div class="timeline-item-header">
+                    <h3>Rutgers University</h3>
+                    <span class="timeline-date">Present</span>
+                </div>
+                <span class="timeline-subtitle">Accounting Major</span>
+                <p>Currently pursuing a degree in Accounting, developing core competencies in financial reporting, auditing, and corporate finance. Active in campus community and focused on building professional acumen.</p>
+            </div>
+            
+            <!-- Timeline Item 5: High School -->
+            <div class="timeline-item">
+                <div class="timeline-item-header">
+                    <h3>River Dell High School</h3>
+                    <span class="timeline-date">Graduated 2023</span>
+                </div>
+                <span class="timeline-subtitle">High School Diploma | River Edge, NJ</span>
+                <p>Successfully completed high school education, building a strong academic foundation that prepared me for the rigors of a university business program.</p>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="about-section">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Personal Liquidity Dashboard</h3>
+                    <p>A web-based financial tool designed to help users track their monthly cash flow against their debts. Features include interactive charts, dark mode, and dynamic calculations.</p>
+                    <a href="assets/dashboard.html" target="_blank" class="btn btn-outline" style="margin-top: 1rem;">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Let's Connect</h2>
+            <p>I'm always open to discussing new opportunities, networking, or answering any questions you may have. Feel free to reach out via email or connect with me on LinkedIn.</p>
+            
+            <div class="contact-links">
+                <a href="mailto:kkw48@scarletmail.rutgers.edu">Email Me</a>
+                <a href="https://www.linkedin.com/in/kentaro-wada-88ab12354/" target="_blank">LinkedIn</a>
+            </div>
+            
+            <a href="mailto:kkw48@scarletmail.rutgers.edu" class="btn btn-primary">Send an Email</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Kentaro K Wada. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" aria-label="Scroll to top">↑</button>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // --- Dark Mode Toggle Logic ---
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                darkModeToggle.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // --- Back to Top Button Logic ---
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+</body>
+</html>
